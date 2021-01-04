@@ -1,0 +1,92 @@
+from accounts.models import Author
+from news.models import *
+from django.contrib.auth.models import User
+
+# Создать двух пользователей (с помощью метода User.objects.create_user).
+User.objects.create_user("kolya")
+User.objects.create_user("petya")
+
+# Создать два объекта модели Author, связанные с пользователями.
+user_kolya = User.objects.get(username = "kolya")
+user_petya = User.objects.get(username = "petya")
+Author.objects.create(user=user_kolya)
+Author.objects.create(user=user_petya)
+
+# Добавить 4 категории в модель Category.
+for cat in ('SPT', 'PLC', 'EDC', 'OTH'):
+    Category.objects.create(post_category=cat)
+
+# Добавить 2 статьи и 1 новость.
+author_kolya = Author.objects.get(user__username='kolya')
+author_petya = Author.objects.get(user__username='petya')
+at1_kolya = Post.objects.create(author=author_kolya, type = Post.article, title='at1_kolya_plc', content=at1_text)
+at2_kolya = Post.objects.create(author=author_kolya, type = Post.article, title='at2_kolya_plc', content=at2_text)
+nw1_petya = Post.objects.create(author=author_petya, type = Post.news, title='nw1_petya_spt_edc', content=nw1_text)
+nw2_petya = Post.objects.create(author=author_petya, type = Post.news, title='nw2_petya_spt_edc', content=nw1_text)
+
+# Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий).
+sport_category = Category.objects.get(post_category='SPT')
+politics_category = Category.objects.get(post_category='PLC')
+education_category = Category.objects.get(post_category='EDC')
+at1_plc = PostCategory.objects.create(post=at1_kolya, category=politics_category)
+at2_plc = PostCategory.objects.create(post=at2_kolya, category=politics_category)
+nw1_spt = PostCategory.objects.create(post=nw1_petya, category=sport_category)
+nw1_edc = PostCategory.objects.create(post=nw1_petya, category=education_category)
+
+# Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий).
+at1_kolya = Post.objects.get(content=at1_text)
+at2_kolya = Post.objects.get(content=at2_text)
+nw1_petya = Post.objects.get(content=nw1_text)
+at1_kolya_1 = Comment.objects.create(post=at1_kolya, user=user_kolya, text='comment1')
+at1_petya_2 = Comment.objects.create(post=at1_kolya, user=user_petya, text='comment2') 
+at2_kolya_3 = Comment.objects.create(post=at2_kolya, user=user_kolya, text='comment3')
+at2_petya_4 = Comment.objects.create(post=at2_kolya, user=user_petya, text='comment4')
+nw1_kolya_5 = Comment.objects.create(post=nw1_petya, user=user_kolya, text='comment5') 
+nw1_petya_6 = Comment.objects.create(post=nw1_petya, user=user_petya, text='comment6')
+
+# Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
+for comment in Comment.objects.all():
+    comment.like()
+    comment.dislike()
+    comment.dislike()
+for post in Post.objects.all():
+    post.like()
+    post.like()
+    post.like()
+    post.like()
+    post.dislike()
+Post.objects.all().first().like()
+
+# Обновить рейтинги пользователей.
+for author in Author.objects.all():
+    author.update_rating()
+    
+# Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+Author.objects.all().order_by('-rating').values('user__username','rating').first()
+
+# Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+best_post = Post.objects.all().order_by('-rating').first()
+print(f'The best post description:\n\
+  Created     : {best_post.creation_datetime}\n\
+  Author name : {best_post.author.user.username}\n\
+  Rating      : {best_post.rating}\n\
+  Title       : {best_post.title}\n\
+  Preview     : {best_post.preview()}\n')
+
+# Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+comments = Comment.objects.filter(post=best_post)
+for comment in comments:
+    print(f'created: {comment.creation_datetime}; user: {comment.user.username}; rating: {comment.rating};\
+ text: {comment.text}')
+
+at1_text = """Согласно утвержденному порядку, Роспотребнадзор в случае возникновения угрозы для эпидемиологического 
+благополучия граждан должен установить один из трех уровней риска. Первый уровень объявляется при выявлении таких 
+заболеваний в других странах, но с угрозой распространения. Второй — при ситуации, когда в России были выявлены 
+единичные случаи и локальные очаги. Третий — при распространении инфекции на территории одного или нескольких 
+субъектов РФ."""
+at2_text = """Если в мире появятся новые инфекции, которые также будут угрожать населению РФ, то Роспотребнадзор должен 
+будет установить один из трех уровней опасности. Для каждого из них определен свой порядок действий властей. Об этом 
+говорится в указе, подписанном президентом Владимиром Путиным, который вступил в силу с 4 января."""
+nw1_text = """Губерниев ранее пообещал, что съест ботинок в прямом эфире, если российские биатлонисты достигнут 
+отметки в 50 гонок на этапах Кубка мира без медалей. Сейчас антирекордная серия россиян без попадания на подиум 
+составляет уже 39 гонок."""
