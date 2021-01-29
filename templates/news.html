@@ -4,9 +4,7 @@
 {% load custom_filters %}
 
 <!-- Название у нас будет News -->
-{% block title %}
-    News
-{% endblock title %}
+{% block title %}News{% endblock title %}
  
 <!-- В контенте на странице мы выводим все новости -->
 {% block content %}
@@ -16,9 +14,6 @@
     {% if news %} 
         <table>
             <tr>
-                <td>
-                    Идентификатор
-                </td>                
                 <td>
                     Заголовок
                 </td>
@@ -35,10 +30,13 @@
         {% for o_news in news %}
             <tr>
                 <td>
-                    {{ o_news.id }}
-                </td>                
-                <td>
-                    {{ o_news.title }}
+                    <!-- При нажатии на имя товара в таблице нас теперь будет перекидывать 
+                    на страницу с информацией о новости -->
+                    <a href="{% url 'one_news' o_news.id %}">{{ o_news.title }}</a>
+                    <!-- добавим ссылку на редактирование новости-->
+                    <a href="{% url 'news_update' o_news.id %}"><u>Редактировать</u></a>
+                    <!-- добавим ссылку на удаление новости-->
+                    <a href="{% url 'news_delete' o_news.id %}"><u> Удалить </u></a>
                 </td>
                 <td>
                     {{ o_news.author.user }}
@@ -73,7 +71,13 @@
             {% endif %}
 
         {% endif %}
+    
+    <hr>
+    <a href="{% url 'news_add' %}">Добавить новость</a>
+    <br>
+    <a href="{% url 'news_search' %}">Поиск новостей</a>
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
+
 {% endblock content %}

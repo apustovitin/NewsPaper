@@ -20,6 +20,11 @@ class Category(models.Model):
     ]
     post_category = models.CharField(max_length=3, choices=CATEGORIES, default=other, unique=True)
 
+    def __str__(self):
+        for category in self.CATEGORIES:
+            if category[0] == self.post_category:
+                return f'{category[1]}'
+
 
 class Post(models.Model):
     """Модель Post
@@ -60,6 +65,11 @@ class Post(models.Model):
         длиной 124 символа и добавляет многоточие в конце.
         """
         return self.content[:124] + "..."
+
+    def get_absolute_url(self):
+        # добавим абсолютный путь чтобы после создания нас перебрасывало 
+        # на страницу с новостью
+        return f'/news/{self.id}' 
 
 
 class PostCategory(models.Model):

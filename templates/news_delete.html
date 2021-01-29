@@ -1,0 +1,47 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %} 
+
+{% load custom_filters %}
+
+<!-- Название у нас будет News -->
+{% block title %}News{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим все новости -->
+{% block content %}
+    <h2>Вы действительно хотите удалить эту новость'?</h2>
+    <table>
+        <thead>
+            <th>
+                Заголовок
+            </th>
+            <th>
+                Автор
+            </th>
+            <th>
+                Дата
+            </th>
+            <th>
+                Обзор
+            </th>
+        </thead>
+        <tr>
+            <td>
+                {{ one_news.title }}
+            </td>
+            <td>
+                {{ one_news.author.user }}
+            </td>
+            <td>
+                {{ one_news.creation_datetime|date:'d-M-Y' }}
+            </td>
+            <td>
+                {{ one_news.content|profanity|truncatechars:50 }}
+            </td>
+        </tr>
+    </table>
+        
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="подтвердить">
+    </form>
+{% endblock content %} 

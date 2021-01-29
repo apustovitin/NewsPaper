@@ -54,3 +54,6 @@ class Author(models.Model):
         self.rating = self._update_author_comments_rating() + self._update_posts_comments_rating() \
                       + self._update_posts_rating()
         self.save()
+
+    def __str__(self):
+        return f'{self.user}'

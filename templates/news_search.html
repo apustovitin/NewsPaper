@@ -22,9 +22,6 @@
         <table>
             <tr>
                 <td>
-                    Идентификатор
-                </td>                
-                <td>
                     Заголовок
                 </td>
                 <td>
@@ -40,10 +37,13 @@
         {% for o_news in filter.qs %}
             <tr>
                 <td>
-                    {{ o_news.id }}
-                </td>                
-                <td>
-                    {{ o_news.title }}
+                    <!-- При нажатии на имя товара в таблице нас теперь будет перекидывать 
+                    на страницу с информацией о новости -->
+                    <a href="{% url 'one_news' o_news.id %}">{{ o_news.title }}</a>
+                    <!-- добавим ссылку на редактирование новости-->
+                    <a href="{% url 'news_update' o_news.id %}"><u>Редактировать</u></a>
+                    <!-- добавим ссылку на удаление новости-->
+                    <a href="{% url 'news_delete' o_news.id %}"><u> Удалить </u></a>
                 </td>
                 <td>
                     {{ o_news.author.user }}

@@ -4,13 +4,12 @@
 {% load custom_filters %}
  
 <!-- Название у нас будет News -->
-{% block title %}
-    News
-{% endblock title %}
+{% block title %}News{% endblock title %}
  
 <!-- В контенте на странице мы выводим новость, айди которой было передано в адрес -->
 {% block content %}
-    <h1>{{ one_news.title }}</h1>
+    <h3>{{ one_news.title }}</h3>
+    <br>
     <p2>{{ one_news.creation_datetime|date:'d-M-Y h:m' }}</p2>
     <hr>
     <p1>{{ one_news.content|profanity }}</p1>
