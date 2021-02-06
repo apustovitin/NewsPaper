@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head_title %} Страница пользователя {% endblock head_title %}
+
+{% block header %}
+Редактировать данные пользователя
+{% endblock header %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-xl-4 mx-auto">
+            <form style="text-align: center;" method="POST">
+                {% csrf_token %}
+                <h4 style="text-align: center;">Логин</h4>
+                {{ form.username }}
+                <h4 style="text-align: center;">Имя</h4>
+                {{ form.first_name }}
+                <h4 style="text-align: center;">Фамилия</h4>
+                {{ form.last_name }}
+                <h4 style="text-align: center;">Адрес электронной почты</h4>
+                {{ form.email }}<br>
+
+                <button class="btn btn-success">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -20,11 +20,14 @@
                 <td>
                     Автор
                 </td>
-                <td>
+                <td width="10%">
                     Дата
                 </td>
                 <td>
                     Обзор
+                </td>
+                <td>
+                    Действия
                 </td>
             </tr>
         {% for o_news in news %}
@@ -33,19 +36,22 @@
                     <!-- При нажатии на имя товара в таблице нас теперь будет перекидывать 
                     на страницу с информацией о новости -->
                     <a href="{% url 'one_news' o_news.id %}">{{ o_news.title }}</a>
-                    <!-- добавим ссылку на редактирование новости-->
-                    <a href="{% url 'news_update' o_news.id %}"><u>Редактировать</u></a>
-                    <!-- добавим ссылку на удаление новости-->
-                    <a href="{% url 'news_delete' o_news.id %}"><u> Удалить </u></a>
                 </td>
                 <td>
                     {{ o_news.author.user }}
                 </td>
-                <td>
+                <td  width="10%">
                     {{ o_news.creation_datetime|date:'d-M-Y' }}
                 </td>
                 <td>
                     {{ o_news.content|profanity|truncatechars:50 }}
+                </td>
+                <td>
+                    <!-- добавим ссылку на редактирование новости-->
+                    <a href="{% url 'news_update' o_news.id %}"><u>Редактировать</u></a>
+                    <br />
+                    <!-- добавим ссылку на удаление новости-->
+                    <a href="{% url 'news_delete' o_news.id %}"><u> Удалить </u></a>
                 </td>
             </tr>
         {% endfor %}

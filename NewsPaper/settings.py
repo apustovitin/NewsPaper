@@ -25,7 +25,7 @@ SECRET_KEY = '9c=s55m1=+*6l7gto3_8pqcl1^^@!)4)p&f5g2%czp1px*8e(f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.56.102']
+ALLOWED_HOSTS = ['np-d.test.com']
 
 
 # Application definition
@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'fpages',
     'django_filters',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -108,6 +115,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -131,7 +144,37 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/news/'
+
 # The ID, as an integer, of the current site in the django_site database table. 
 # This is used so that application data can hook into specific sites and 
 # a single database can manage content for multiple sites.
 SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# The URL (or URL name) to redirect to directly after signing up. Note that users are
+# only redirected to this URL if the signup went through uninterruptedly, for example,
+# without any side steps due to email verification. If your project requires the user
+# to always pass through certain onboarding views after signup, you will have to keep
+# track of state indicating whether or not the user successfully onboarded, and
+# handle accordingly.
+# ACCOUNT_SIGNUP_REDIRECT_URL (=``settings.LOGIN_REDIRECT_URL``)
+ACCOUNT_SIGNUP_REDIRECT_URL = '/news/'
+
+# The URL (or URL name) to return to after the user logs out. 
+# This is the counterpart to Django’s LOGIN_REDIRECT_URL.
+# ACCOUNT_LOGOUT_REDIRECT_URL (=”/”)
+ACCOUNT_LOGOUT_REDIRECT_URL ='/news/'
+
+# If redirecting to statically configurable URLs (as specified in your project 
+# settings) is not flexible enough, then you can override the following adapter 
+# methods:
+ACCOUNT_ADAPTER = 'accounts.adapter.MyAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'accounts.adapter.SocialAccountAdapter'
+ACCOUNT_FORMS = {'signup': 'accounts.forms.BasicSignupForm'}

@@ -7,6 +7,7 @@ from .models import Post, Category
 from django.core.paginator import Paginator
 from .filters import NewsFilter # импортируем недавно написанный фильтр
 from .forms import NewsForm # импортируем нашу форму
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class NewsList(ListView):
     # указываем модель, объекты которой мы будем выводить
@@ -50,19 +51,21 @@ class NewsSearch(ListView):
         return context
 
 
-class NewsAdd(CreateView):
+class NewsAdd(PermissionRequiredMixin, CreateView):
     ## дженерик для создания объекта. Надо указать только имя шаблона и класс формыс
     # указываем имя шаблона, в котором будет лежать html, в котором будут 
     # все инструкции о том, как именно пользователю должны вывестись наши объекты
     template_name = 'news_add.html'
     # добавляем форм класс, чтобы получать доступ к форме через метод POST
     form_class = NewsForm
+    permission_required = ('news.add_post')
 
 
-class NewsUpdate(UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
     # дженерик для редактирования объекта
     template_name = 'news_add.html'
     form_class = NewsForm
+    permission_required = ('news.change_post')
 
     def get_object(self, **kwargs):
         # метод get_object мы используем вместо queryset, чтобы получить 
@@ -71,9 +74,10 @@ class NewsUpdate(UpdateView):
         return Post.objects.get(pk=id)
 
 
-class NewsDelete(DeleteView):
+class NewsDelete(PermissionRequiredMixin, DeleteView):
     # дженерик для редактирования объекта
     template_name = 'news_delete.html'
     context_object_name = 'one_news'
     queryset = Post.objects.all()
     success_url = '/news/'
+    permission_required = ('news.delete_post')
