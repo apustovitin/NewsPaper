@@ -8,6 +8,8 @@ from django.core.paginator import Paginator
 from .filters import NewsFilter # импортируем недавно написанный фильтр
 from .forms import NewsForm # импортируем нашу форму
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from accounts.models import Author
+from django.shortcuts import redirect
 
 class NewsList(ListView):
     # указываем модель, объекты которой мы будем выводить
@@ -19,7 +21,7 @@ class NewsList(ListView):
     # чтобы обратиться к самому списку объектов через html-шаблон
     context_object_name = 'news'
     queryset = Post.objects.filter(type='NW').order_by('-creation_datetime')
-    paginate_by = 2
+    paginate_by = 3
 
 
 class OneNewsDetail(DetailView):
@@ -40,7 +42,7 @@ class NewsSearch(ListView):
     # чтобы обратиться к самому списку объектов через html-шаблон
     context_object_name = 'news_search'
     queryset = Post.objects.filter(type='NW').order_by('-creation_datetime')
-    paginate_by = 2
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         # забираем отфильтрованные объекты переопределяя метод get_context_data
@@ -59,6 +61,12 @@ class NewsAdd(PermissionRequiredMixin, CreateView):
     # добавляем форм класс, чтобы получать доступ к форме через метод POST
     form_class = NewsForm
     permission_required = ('news.add_post')
+
+    def form_valid(self, form):
+        new_post = form.save(commit=False)
+        new_post.author = Author.objects.get(user=self.request.user)
+        new_post.save()
+        return redirect(f'/news/{new_post.id}/')
 
 
 class NewsUpdate(PermissionRequiredMixin, UpdateView):

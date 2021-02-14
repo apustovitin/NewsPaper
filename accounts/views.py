@@ -6,6 +6,7 @@ from django.views.generic import ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import EditForm
 from django.urls import reverse
+from .models import Author
 
 
 @login_required
@@ -15,7 +16,8 @@ def become_author(*args, **kwargs):
     authors_group = Group.objects.get(name='authors')
     if not user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
-    return redirect('/accounts/{username}/')
+        Author.objects.create(user=user)
+    return redirect(f'/accounts/{username}/')
 
 
 # Редактирование профиля
