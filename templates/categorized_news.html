@@ -3,15 +3,17 @@
 
 {% load custom_filters %}
 
-<!-- Название у нас будет News -->
 {% block title %}News{% endblock title %}
- 
-<!-- В контенте на странице мы выводим все новости -->
+
+{% block header %}
+
+{% endblock header %}
+
 {% block content %}
-    <h1>Все новости</h1>
-    <p1>Количество новостей на странице {{ news|length }}</p1>
+    <h3>Все новости в категории {{ category_label }}</h3>
+    <p1>Количество новостей на странице {{ categorized_news|length }}</p1>
     <hr>
-    {% if news %} 
+    {% if categorized_news %} 
         <table>
             <tr>
                 <td>
@@ -33,7 +35,7 @@
                     Действия
                 </td>
             </tr>
-        {% for o_news in news %}
+        {% for o_news in categorized_news %}
             <tr>
                 <td>
                     <!-- При нажатии на заголовок новости в таблице нас теперь будет перекидывать 
@@ -48,7 +50,7 @@
                 </td>
                 <td>
                     {% for category_label_list in o_news.get_categories %}
-                        <a href="{% url 'categorized_news' category_label_list.0 %}">{{ category_label_list.1 }}</a>
+                        {{ category_label_list.1 }}
                     {% endfor %}
                 </td>
                 <td>
@@ -63,35 +65,24 @@
                 </td>
             </tr>
         {% endfor %}
-        </table>
-        {% if is_paginated %}
- 
-            {% if page_obj.has_previous %}
-                <a href="?page=1">First</a>
-                <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
-            {% endif %}
- 
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <a>{{ num }}</a>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
- 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">>>></a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-            {% endif %}
-
-        {% endif %} 
-
+        </table> 
+    
     <hr>
+    {% if is_subscribtion %}
+        <a href="{% url 'unsubscribe_category' post_category %}">
+            Отписаться от новостей в категории {{ category_label }}
+        </a>
+        <br>
+    {% else %}
+        <a href="{% url 'subscribe_category' post_category %}">
+            Подписаться на новости в категории {{ category_label }}
+        </a>
+        <br>
+    {% endif %}
     <a href="{% url 'news_add' %}">Добавить новость</a>
     <br>
-    <a href="{% url 'news_search' %}">Поиск новостей</a>
+    <a href="/news/">    Новости</a>
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h2>Новостей в категории {{ category_label }} нет!</h2>
     {% endif %}
-
 {% endblock content %}

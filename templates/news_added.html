@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <p2>Здравствуйте, {{ name }}. Новая статья в категории {{ category }}!</p2><hr>
+        <a href="http://np-d.test.com:8000{% url 'one_news' one_news.id %}">{{ one_news.title }}</a><br>
+        <p1>{{ one_news.content|truncatechars:50 }}</p1>
+    </body>
+</html>

@@ -19,11 +19,33 @@ class Category(models.Model):
         (other, 'другое')
     ]
     post_category = models.CharField(max_length=3, choices=CATEGORIES, default=other, unique=True)
+    subscribers = models.ManyToManyField(User, through='CategorySubscribers')
 
-    def __str__(self):
+    def get_category_label_list(self):
         for category in self.CATEGORIES:
             if category[0] == self.post_category:
-                return f'{category[1]}'
+                return category
+
+    def get_subscribers_info_by_category(self):
+        subscribers_info = []
+        category_subscribers_objects = CategorySubscribers.objects.filter(category=self)
+        if category_subscribers_objects.count():
+            for category_subscribers_object in category_subscribers_objects:
+                subscriber_info = {
+                    'email': category_subscribers_object.user.email,
+                    'name': category_subscribers_object.user.first_name or category_subscribers_object.user.username,
+                    'category': self.get_category_label_list()[1]
+                }
+                subscribers_info.append(subscriber_info.copy())
+        return subscribers_info
+
+    def __str__(self):
+        return self.get_category_label_list()[1]
+
+
+class CategorySubscribers(models.Model):
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
 
 class Post(models.Model):
@@ -71,6 +93,28 @@ class Post(models.Model):
         # на страницу с новостью
         return f'/news/{self.id}'
 
+    def get_categories(self):
+        categories = []
+        for post_category_obj in PostCategory.objects.filter(post=self):
+            categories += [post_category_obj.category.get_category_label_list()]
+        return categories
+
+    def get_subscribers_info_by_post(self):
+        subscribers_info = []
+        for post_category_obj in PostCategory.objects.filter(post=self):
+            category_subscribers_info = \
+                post_category_obj.category.get_subscribers_info_by_category()
+            if subscribers_info and category_subscribers_info:
+                i = 0
+                for existent_subscriber in subscribers_info:
+                    for new_subscriber in category_subscribers_info:
+                        if existent_subscriber['email'] == new_subscriber['email']:
+                            subscribers_info[i]['category'] += ", " + new_subscriber['category']
+                            category_subscribers_info.remove(new_subscriber)
+                    i += 1
+            subscribers_info += category_subscribers_info
+        return subscribers_info
+
 
 class PostCategory(models.Model):
     """Модель PostCategory
@@ -80,6 +124,11 @@ class PostCategory(models.Model):
     """
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        for category in self.category.CATEGORIES:
+            if category[0] == self.category.post_category:
+                return f'{category[1]}'
 
 
 class Comment(models.Model):

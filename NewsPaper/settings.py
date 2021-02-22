@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'news',
+    'news.apps.NewsConfig',
     'accounts',
     'django.contrib.sites',
     'django.contrib.flatpages',
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -156,7 +157,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # The URL (or URL name) to redirect to directly after signing up. Note that users are
 # only redirected to this URL if the signup went through uninterruptedly, for example,
@@ -178,3 +178,22 @@ ACCOUNT_LOGOUT_REDIRECT_URL ='/news/'
 ACCOUNT_ADAPTER = 'accounts.adapter.MyAccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'accounts.adapter.SocialAccountAdapter'
 ACCOUNT_FORMS = {'signup': 'accounts.forms.BasicSignupForm'}
+# адрес сервера GMAIL
+EMAIL_HOST = 'smtp.gmail.com'
+# порт smtp сервера тоже одинаковый
+EMAIL_PORT = 465
+# ваше имя пользователя, например если ваша почта user@yandex.ru, 
+# то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_USER = 'apustovitin@gmail.com'
+EMAIL_HOST_PASSWORD = '!%k5439a' # пароль от почты
+EMAIL_USE_SSL = True
+SERVER_EMAIL = 'apustovitin@gmail.com'
+
+DEFAULT_FROM_EMAIL = 'apustovitin@gmail.com'
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+# формат даты, которую будет воспрнимать наш задачник(вспоминаем урок по фильтрам) 
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds

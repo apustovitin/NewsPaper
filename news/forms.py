@@ -7,7 +7,9 @@ from accounts.models import Author
 class NewsForm(ModelForm):
     # в класс мета как обычно надо написать модель по которой будет строится форма
     # и нужные нам поля. Мы уже делали что-то похожее с фильтрами.
+    # author = ModelChoiceField(queryset=Author.objects.all())
     category = ModelMultipleChoiceField(queryset=Category.objects.all())
+
     class Meta:
         model = Post
         fields = ['title', 'type', 'category', 'content']
