@@ -185,7 +185,7 @@ EMAIL_PORT = 465
 # ваше имя пользователя, например если ваша почта user@yandex.ru, 
 # то сюда надо писать user, иными словами, это всё то что идёт до собаки
 EMAIL_HOST_USER = 'apustovitin@gmail.com'
-EMAIL_HOST_PASSWORD = '!%k5439a' # пароль от почты
+EMAIL_HOST_PASSWORD = '' # пароль от почты
 EMAIL_USE_SSL = True
 SERVER_EMAIL = 'apustovitin@gmail.com'
 
