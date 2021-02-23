@@ -7,33 +7,33 @@ from .models import Post, Category, CategorySubscribers, PostCategory
 from django.contrib.auth.models import User
 
 
-@receiver(m2m_changed, sender=Post.category.through)
-def notify_subscribers_about_news(sender, instance, action, reverse, model, pk_set, **kwargs):
-    if action == "post_add":
-        subscribers_info = instance.get_subscribers_info_by_post()
-        # pc = PostCategory.objects.filter(post=instance)
-        print(f'si: {subscribers_info}')
-        if subscribers_info:
-            for subscriber_info in subscribers_info:
-                email = subscriber_info['email']
-                name = subscriber_info['name']
-                category = subscriber_info['category']
-                html_content = render_to_string( 
-                    'news_added.html',
-                    {
-                        'one_news': instance,
-                        'name': name,
-                        'category': category,
-                    }
-                )
-                msg = EmailMultiAlternatives(
-                    subject=f'Новости портала np-d.test.com',
-                    body=f'Здравствуйте, {name}. Новая статья в категории {category}!',
-                    from_email=settings.SERVER_EMAIL,
-                    to=[email],
-                )
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
+# @receiver(m2m_changed, sender=Post.category.through)
+# def notify_subscribers_about_news(sender, instance, action, reverse, model, pk_set, **kwargs):
+#     if action == "post_add":
+#         subscribers_info = instance.get_subscribers_info_by_post()
+#         # pc = PostCategory.objects.filter(post=instance)
+#         print(f'si: {subscribers_info}')
+#         if subscribers_info:
+#             for subscriber_info in subscribers_info:
+#                 email = subscriber_info['email']
+#                 name = subscriber_info['name']
+#                 category = subscriber_info['category']
+#                 html_content = render_to_string( 
+#                     'news_added.html',
+#                     {
+#                         'one_news': instance,
+#                         'name': name,
+#                         'category': category,
+#                     }
+#                 )
+#                 msg = EmailMultiAlternatives(
+#                     subject=f'Новости портала np-d.test.com',
+#                     body=f'Здравствуйте, {name}. Новая статья в категории {category}!',
+#                     from_email=settings.SERVER_EMAIL,
+#                     to=[email],
+#                 )
+#                 msg.attach_alternative(html_content, "text/html")
+#                 msg.send()
 
 def send_custom_mail(subject, message, recipient_list):
     send_mail(

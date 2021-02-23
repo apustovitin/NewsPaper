@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
+from .tasks import news_notify
 
 @login_required
 def subscribe_category(request, *args, **kwargs):
@@ -110,9 +111,10 @@ class NewsAdd(PermissionRequiredMixin, CreateView):
         self.new_post = form.save(commit=False)
         self.new_post.author = Author.objects.get(user=self.request.user)
         self.new_post.save()
-        # subscribers_info = []
-        # for category in form.cleaned_data.get('category'):
-        #     subscribers_info += category.get_subscribers_info_by_category()
+        categories_names = []
+        for category in form.cleaned_data.get('category'):
+                    categories_names += [category.post_category]
+        news_notify.delay(categories_names, self.new_post.id)
         return super(NewsAdd, self).form_valid(form)
 
 

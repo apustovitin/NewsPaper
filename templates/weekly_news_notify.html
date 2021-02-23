@@ -7,7 +7,6 @@
     </head>
     <body>
         <p2>Здравствуйте, {{ name }}. Новые статии в категории {{ category_label }}!</p2><hr>
-        <p1>{{ one_news.content|truncatechars:50 }}</p1>
         <table>
             <tr>
                 <td>
@@ -20,10 +19,10 @@
         {% for one_news in news %}
             <tr>
                 <td>
-                    <a href="http://np-d.test.com:8000{% url 'one_news' one_news.id %}">{{ one_news.title }}</a>
+                    {{ one_news.title }}
                 </td>
                 <td>
-                    {{ one_news.content|truncatechars:50 }}
+                    <a href="http://np-d.test.com:8000{% url 'one_news' one_news.id %}">{{ one_news.content|truncatechars:50 }}</a>
                 </td>
             </tr>
         {% endfor %}

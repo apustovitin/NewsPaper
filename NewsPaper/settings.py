@@ -185,7 +185,7 @@ EMAIL_PORT = 465
 # ваше имя пользователя, например если ваша почта user@yandex.ru, 
 # то сюда надо писать user, иными словами, это всё то что идёт до собаки
 EMAIL_HOST_USER = 'apustovitin@gmail.com'
-EMAIL_HOST_PASSWORD = '' # пароль от почты
+EMAIL_HOST_PASSWORD = '!%k5439a' # пароль от почты
 EMAIL_USE_SSL = True
 SERVER_EMAIL = 'apustovitin@gmail.com'
 
@@ -197,3 +197,9 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
 # если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
