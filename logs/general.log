@@ -1,0 +1,108 @@
+2021-03-28 19:56:59,526 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:03:10,441 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:06:07,459 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:11:58,449 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:13:47,729 INFO basehttp "GET /news/ HTTP/1.1" 200 17416
+2021-03-28 20:16:40,380 INFO basehttp "GET /news/egaef HTTP/1.1" 301 0
+2021-03-28 20:16:40,471 ERROR log Internal Server Error: /news/egaef/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:16:40,906 ERROR basehttp "GET /news/egaef/ HTTP/1.1" 500 102192
+2021-03-28 20:18:10,642 INFO basehttp "GET /news/e HTTP/1.1" 301 0
+2021-03-28 20:18:10,714 ERROR log Internal Server Error: /news/e/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:18:11,690 ERROR basehttp "GET /news/e/ HTTP/1.1" 500 102108
+2021-03-28 20:32:19,562 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:32:46,443 INFO basehttp "GET /news/ HTTP/1.1" 200 17416
+2021-03-28 20:32:49,058 INFO basehttp "GET /accounts/login/ HTTP/1.1" 200 1588
+2021-03-28 20:33:06,064 INFO basehttp "POST /accounts/login/ HTTP/1.1" 200 1722
+2021-03-28 20:34:38,908 INFO autoreload /home/apustovitin/np-d/NewsPaper/NewsPaper/settings.py changed, reloading.
+2021-03-28 20:34:39,324 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:35:36,023 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:36:02,574 INFO basehttp "GET /news/ HTTP/1.1" 200 17416
+2021-03-28 20:36:09,120 INFO basehttp "GET /news/a HTTP/1.1" 301 0
+2021-03-28 20:36:09,190 ERROR log Internal Server Error: /news/a/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:36:09,721 ERROR basehttp "GET /news/a/ HTTP/1.1" 500 102108
+2021-03-28 20:38:13,779 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:38:30,408 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:39:27,287 INFO autoreload Watching for file changes with StatReloader
+2021-03-28 20:39:39,420 INFO basehttp "GET /news/cxv HTTP/1.1" 301 0
+2021-03-28 20:39:39,494 ERROR log Internal Server Error: /news/cxv/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:39:40,619 ERROR basehttp "GET /news/cxv/ HTTP/1.1" 500 102150

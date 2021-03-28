@@ -14,6 +14,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from .tasks import news_notify
+from django.core.cache import cache
 
 @login_required
 def subscribe_category(request, *args, **kwargs):
@@ -42,7 +43,7 @@ class NewsList(ListView):
     # чтобы обратиться к самому списку объектов через html-шаблон
     context_object_name = 'news'
     queryset = Post.objects.filter(type='NW').order_by('-creation_datetime')
-    paginate_by = 3
+    paginate_by = 10
 
 
 class CategorizedNewsList(ListView):
@@ -70,11 +71,20 @@ class CategorizedNewsList(ListView):
 
 
 class OneNewsDetail(DetailView):
-    # модель всё та же, но мы хотим получать детали конкретно отдельного товара
     model = Post
-    template_name = 'one_news.html' # название шаблона будет one_news.html
-    context_object_name = 'one_news' # название объекта. в нём будет
+    template_name = 'one_news.html'
+    context_object_name = 'one_news'
     queryset = Post.objects.filter(type='NW')
+
+    def get_object(self, *args, **kwargs):
+        # кэш очень похож на словарь, и метод get действует также. 
+        # Он забирает значение по ключу, если его нет, то забирает None.
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+        # если объекта нет в кэше, то получаем его и записываем в кэш
+        if not obj:
+            obj = super().get_object()
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+        return obj
 
 
 class NewsSearch(ListView):

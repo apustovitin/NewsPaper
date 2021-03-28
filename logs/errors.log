@@ -1,0 +1,88 @@
+2021-03-28 20:16:40,471 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/log.py (<class 'news.models.Category.DoesNotExist'>, DoesNotExist('Category matching query does not exist.'), <traceback object at 0x7f28087c3bc0>) Internal Server Error: /news/egaef/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:16:40,906 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/core/servers/basehttp.py None "GET /news/egaef/ HTTP/1.1" 500 102192
+2021-03-28 20:18:10,714 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/log.py (<class 'news.models.Category.DoesNotExist'>, DoesNotExist('Category matching query does not exist.'), <traceback object at 0x7f2805e33c80>) Internal Server Error: /news/e/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:18:11,690 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/core/servers/basehttp.py None "GET /news/e/ HTTP/1.1" 500 102108
+2021-03-28 20:36:09,190 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/log.py (<class 'news.models.Category.DoesNotExist'>, DoesNotExist('Category matching query does not exist.'), <traceback object at 0x7f9f76ff3940>) Internal Server Error: /news/a/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:36:09,721 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/core/servers/basehttp.py None "GET /news/a/ HTTP/1.1" 500 102108
+2021-03-28 20:39:39,494 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/log.py (<class 'news.models.Category.DoesNotExist'>, DoesNotExist('Category matching query does not exist.'), <traceback object at 0x7f123b640500>) Internal Server Error: /news/cxv/
+Traceback (most recent call last):
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/utils/decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/base.py", line 98, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/views/generic/list.py", line 157, in get
+    context = self.get_context_data()
+  File "/home/apustovitin/np-d/NewsPaper/news/views.py", line 59, in get_context_data
+    category_label_list = Category.objects.get(post_category=post_category).get_category_label_list()
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/apustovitin/np-d/lib/python3.8/site-packages/django/db/models/query.py", line 429, in get
+    raise self.model.DoesNotExist(
+news.models.Category.DoesNotExist: Category matching query does not exist.
+2021-03-28 20:39:40,619 ERROR  /home/apustovitin/np-d/lib/python3.8/site-packages/django/core/servers/basehttp.py None "GET /news/cxv/ HTTP/1.1" 500 102150

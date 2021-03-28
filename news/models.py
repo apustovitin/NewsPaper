@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.cache import cache
 
 
 class Category(models.Model):
@@ -115,6 +116,11 @@ class Post(models.Model):
             subscribers_info += category_subscribers_info
         return subscribers_info
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # удаляем post из кэша, чтобы сбросить его
+        cache.delete(f'post-{self.pk}')
+
 
 class PostCategory(models.Model):
     """Модель PostCategory
@@ -128,7 +134,7 @@ class PostCategory(models.Model):
     def __str__(self):
         for category in self.category.CATEGORIES:
             if category[0] == self.category.post_category:
-                return f'{category[1]}'
+                return f'self.post.id {category[1]}'
 
 
 class Comment(models.Model):

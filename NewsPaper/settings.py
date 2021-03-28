@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from logs.log_config import LOGCONF
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +25,7 @@ SECRET_KEY = '9c=s55m1=+*6l7gto3_8pqcl1^^@!)4)p&f5g2%czp1px*8e(f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+LOGGING = LOGCONF
 
 ALLOWED_HOSTS = ['np-d.test.com']
 
@@ -191,7 +193,9 @@ SERVER_EMAIL = 'apustovitin@gmail.com'
 
 DEFAULT_FROM_EMAIL = 'apustovitin@gmail.com'
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-
+ADMINS = (
+    ('tomusya.g', 'tomusya.g@gmail.com'),
+)
 # формат даты, которую будет воспрнимать наш задачник(вспоминаем урок по фильтрам) 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
@@ -203,3 +207,10 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache_files'),
+    }
+}
